@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import Create from "./components/Create.js"
+import Register from './components/Register';
+import Login from './components/Login';
+import Update from './components/Update';
 
-function App() {
+const App = () => {
+const [posts, setPosts] = useState([]);
+const [username, setUsername] = useState([]);
+const [postId, setPostId] = useState(null);
+
+  useEffect(() => {
+  const fetchPosts = async () => {
+    const resp = await fetch('https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT/posts');
+    const {data} = await resp.json();
+    console.log(data.posts);
+    setPosts(data.posts);
+  }
+  fetchPosts();
+}, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Register username={username} setUsername={setUsername}/>
+    <Login username={username} setUsername={setUsername} />
+    <Create posts={posts} setPosts={setPosts}/>
+    <Update posts={posts} setPosts={setPosts} postId={postId} setPostId={setPostId} />
+    <h1 className="Posts">Posts</h1>
+    {posts.length ? posts.map(post => <div key={post._id}>
+      <h3>{post.title}</h3>
+      <p>{post.description}</p>
+      <p>{post.price}</p>
+      <p>{post.location}</p>
+      <p>{post.willDeliver ? "Willing to Deliver" : "Not Willing to Deliver"}</p>
+      <button type="button" className="btn-Edit" onClick={() => setPostId(post._id)}>Edit</button>
+    </div>):null}
+    
+    </>
   );
 }
 
 export default App;
+// https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT
