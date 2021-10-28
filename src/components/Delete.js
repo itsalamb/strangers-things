@@ -17,4 +17,4 @@ const handleDelete = async (postIdToDelete) => {
         // }
 }
 
-  export default handleDelete 
+  export default handleDelete

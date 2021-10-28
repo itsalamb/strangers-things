@@ -1,0 +1,45 @@
+import React, { useEffect, useState } from 'react';
+import handleDelete from './Delete';
+
+const MyPosts = ({ postId, setPostId }) => {
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const token = localStorage.getItem('token');
+            const resp = await fetch('https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT/posts', {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'Application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            const { data } = await resp.json();
+            console.log(data.posts);
+            setPosts(data.posts);
+        }
+        fetchPosts();
+    }, [])
+
+
+    const filteredPosts = posts.filter(post => 
+        post.isAuthor === true
+    )
+
+    return (
+        <>
+            <h1 className="Posts">My Posts</h1>
+            {filteredPosts.length ? filteredPosts.map(post => <div key={post._id}>
+                <h3>{post.title}</h3>
+                <p>{post.description}</p>
+                <p>{post.price}</p>
+                <p>{post.location}</p>
+                <p>{post.willDeliver ? "Willing to Deliver" : "Not Willing to Deliver"}</p>
+                <button type="button" className="btn-Edit" onClick={() => setPostId(post._id)}>Edit</button>
+                <button type="button" className="btn-Delete" onClick={() => handleDelete(post._id)}>Delete</button>
+            </div>) : null}
+        </>
+    );
+}
+
+export default MyPosts

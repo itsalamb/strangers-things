@@ -1,48 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import { Route, NavLink, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Create from "./components/Create.js"
 import Register from './components/Register';
 import Login from './components/Login';
 import Update from './components/Update';
-import handleDelete from './components/Delete';
-
+import AllPosts from './components/AllPosts';
+import MyPosts from './components/MyPosts';
 
 const App = () => {
 const [posts, setPosts] = useState([]);
 const [username, setUsername] = useState([]);
 const [postId, setPostId] = useState(null);
 
-  useEffect(() => {
-  const fetchPosts = async () => {
-    const resp = await fetch('https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT/posts');
-    const {data} = await resp.json();
-    console.log(data.posts);
-    setPosts(data.posts);
-  }
-  fetchPosts();
-}, [])
 
-  return (
-    <>
-    <Register username={username} setUsername={setUsername}/>
-    <Login username={username} setUsername={setUsername} />
-    <Create posts={posts} setPosts={setPosts}/>
-    <Update posts={posts} setPosts={setPosts} postId={postId} setPostId={setPostId} />
-    <handleDelete />
-    <h1 className="Posts">Posts</h1>
-    {posts.length ? posts.map(post => <div key={post._id}>
-      <h3>{post.title}</h3>
-      <p>{post.description}</p>
-      <p>{post.price}</p>
-      <p>{post.location}</p>
-      <p>{post.willDeliver ? "Willing to Deliver" : "Not Willing to Deliver"}</p>
-      <button type="button" className="btn-Edit" onClick={() => setPostId(post._id)}>Edit</button>
-      <button type="button" className="btn-Delete" onClick={() => handleDelete(post._id)}>Delete</button>
-    </div>):null}
-    
-    </>
-  );
+return (
+  <Router>
+    <div id='container'>
+      <nav id='navbar'>
+        <NavLink exact to="/Home">Home  </NavLink>
+        <NavLink exact to="/MyPosts">MyPosts  </NavLink>
+        <NavLink to="/Login">Login  </NavLink>
+        <NavLink to="/Register">Register  </NavLink>
+      </nav>
+      <div id='main-section'>
+        <Switch>
+          <Route path="/Home">
+            <AllPosts />
+          </Route>
+          <Route path="/Login">
+            <Login />
+          </Route>
+          <Route path="/Register">
+            <Register />
+          </Route>
+          <Route path="/Create">
+            <Create />
+          </Route>
+          <Route path="/Edit">
+            <Update />
+          </Route>
+          <Route path="/MyPosts">
+            <MyPosts />
+          </Route>
+        </Switch>
+      </div>
+    </div>
+  </Router>
+)
 }
 
 export default App;
 // https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT
+// Messages, store token, logout, style
