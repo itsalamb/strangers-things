@@ -23,6 +23,7 @@ return (
         <NavLink to="/Create">CreatePost  </NavLink>
         <NavLink to="/Login">Login  </NavLink>
         <NavLink to="/Register">Register  </NavLink>
+        <button onClick={ () => localStorage.clear()}>Log Out</button>
       </nav>
       <div id='main-section'>
         <Switch>
