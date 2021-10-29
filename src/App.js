@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import { Route, NavLink, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Create from "./components/Create.js"
@@ -9,9 +9,9 @@ import AllPosts from './components/AllPosts';
 import MyPosts from './components/MyPosts';
 
 const App = () => {
-const [posts, setPosts] = useState([]);
-const [username, setUsername] = useState([]);
-const [postId, setPostId] = useState(null);
+// const [posts, setPosts] = useState([]);
+// const [username, setUsername] = useState([]);
+// const [postId, setPostId] = useState(null);
 
 
 return (
@@ -20,6 +20,7 @@ return (
       <nav id='navbar'>
         <NavLink exact to="/Home">Home  </NavLink>
         <NavLink exact to="/MyPosts">MyPosts  </NavLink>
+        <NavLink to="/Create">CreatePost  </NavLink>
         <NavLink to="/Login">Login  </NavLink>
         <NavLink to="/Register">Register  </NavLink>
       </nav>
@@ -37,7 +38,7 @@ return (
           <Route path="/Create">
             <Create />
           </Route>
-          <Route path="/Edit">
+          <Route path="/post/edit/:postId" >
             <Update />
           </Route>
           <Route path="/MyPosts">
@@ -52,4 +53,4 @@ return (
 
 export default App;
 // https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT
-// Messages, store token, logout, style
+// Messages, edit, logout, style

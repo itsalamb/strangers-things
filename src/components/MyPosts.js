@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import handleDelete from './Delete';
 
-const MyPosts = ({ postId, setPostId }) => {
+import { useHistory } from "react-router";
+import Messages from './Messages';
+
+const MyPosts = ({  postId, setPostId }) => {
+    const history = useHistory();
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -21,9 +25,12 @@ const MyPosts = ({ postId, setPostId }) => {
         fetchPosts();
     }, [])
 
+    
+
 
     const filteredPosts = posts.filter(post => 
         post.isAuthor === true
+
     )
 
     return (
@@ -35,9 +42,13 @@ const MyPosts = ({ postId, setPostId }) => {
                 <p>{post.price}</p>
                 <p>{post.location}</p>
                 <p>{post.willDeliver ? "Willing to Deliver" : "Not Willing to Deliver"}</p>
-                <button type="button" className="btn-Edit" onClick={() => setPostId(post._id)}>Edit</button>
-                <button type="button" className="btn-Delete" onClick={() => handleDelete(post._id)}>Delete</button>
+                <button type="button" className="btn-Edit" onClick={() => {history.push(`post/edit/${post._id}`)}}>Edit</button>
+                <button type="button" className="btn-Delete" onClick={() => {
+                    handleDelete(post._id)
+                    history.push('/MyPosts')}}>Delete</button>
+                <Messages />
             </div>) : null}
+            
         </>
     );
 }

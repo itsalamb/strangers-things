@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
 const handleDelete = async (postIdToDelete) => {
     console.log('postIdToDelete', postIdToDelete);
@@ -10,11 +10,11 @@ const handleDelete = async (postIdToDelete) => {
                 'Authorization': `Bearer ${token}`,
             },
         });
-        const data = await response.json();
-        // if(data) {
-        //     const newPosts = posts.filter(post => post.id !== postIdToDelete)
-        //     setPosts(newPosts);
-        // }
+        // const data = await response.json();
+        // // if(data) {
+        // //     const newPosts = posts.filter(post => post.id !== postIdToDelete)
+        // //     setPosts(newPosts);
+        // // }
 }
 
   export default handleDelete

@@ -1,18 +1,24 @@
 import React, {useState} from "react";
+import { useParams } from "react-router";
+import { useHistory } from "react-router";
 
 const Update = ({posts, setPosts, postId, setPostId}) => {
+    const history = useHistory();
+    const params = useParams();
     const [title, setTitle] = useState([]);
     const [description, setDescription] = useState([]);
     const [price, setPrice] = useState([]);
     const [location, setLocation] = useState([]);
     const [willDeliver, setWillDeliver] = useState(true);
+    
+    console.log(params);
 
     const handleSubmit = async (ev) => {
         ev.preventDefault();
         const token = localStorage.getItem('token');
         console.log('title, description: ', title, description);
         console.log('postId: ', postId);
-        const response = await fetch(`https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT/posts/${postId}`,{
+        const response = await fetch(`https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT/posts/${params.postId}`,{
             method: 'PATCH',
             headers: {
                 'Content-type': 'Application/json',
@@ -62,8 +68,8 @@ const Update = ({posts, setPosts, postId, setPostId}) => {
                     onChange={handleChange}
                 />
             </div>
-        );
-    };
+        ); 
+    }; 
 
     const Checkbox = ({label, value, onChange}) => {
         return (
@@ -85,7 +91,9 @@ const Update = ({posts, setPosts, postId, setPostId}) => {
         <input type="text" placeholder="price" value={price} onChange={(ev) => setPrice(ev.target.value)}></input>
         <input type="text" placeholder="location" value={location} onChange={(ev) => setLocation(ev.target.value)}></input>
         <Checkerbox willDeliver={willDeliver} setWillDeliver={setWillDeliver} />
-        <button type="submit" className="btn">Update</button>
+        <button type="submit" className="btn" onClick={(ev) => {
+            handleSubmit(ev)
+            history.push('/MyPosts')}}>Update</button>
     </form>
 </>
 }
