@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Update from './components/Update';
 import AllPosts from './components/AllPosts';
 import MyPosts from './components/MyPosts';
+import Messages from './components/Messages';
 
 const App = () => {
 // const [posts, setPosts] = useState([]);
@@ -45,6 +46,9 @@ return (
           <Route path="/MyPosts">
             <MyPosts />
           </Route>
+          <Route path="/MyPosts/:postId/messgaes">
+            <Messages />
+          </Route>
         </Switch>
       </div>
     </div>
@@ -54,4 +58,4 @@ return (
 
 export default App;
 // https://strangers-things.herokuapp.com/api/2109-LSU-RM-WEB-FT
-// Messages, edit, logout, style
+// Messages, style

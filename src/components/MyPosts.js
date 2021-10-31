@@ -37,7 +37,9 @@ const MyPosts = ({  postId, setPostId }) => {
         <>
             <h1 className="Posts">My Posts</h1>
             {filteredPosts.length ? filteredPosts.map(post => <div key={post._id}>
-                <h3>{post.title}</h3>
+                <h3 button="button" className="btn-go-to" onClick = {() => {
+                    history.push('/myposts/:postId/messages')
+                }}>{post.title}</h3>
                 <p>{post.description}</p>
                 <p>{post.price}</p>
                 <p>{post.location}</p>
@@ -54,3 +56,5 @@ const MyPosts = ({  postId, setPostId }) => {
 }
 
 export default MyPosts
+
+// tried getting the click of the Title to bring it to a page that showed the post and the messages but could not get it to work correctly with the PostId
