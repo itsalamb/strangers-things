@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Project Description
+
+This project is a craigslist type site that users can sell or buy items from other users.
+
 ## Available Scripts
 
 In the project directory, you can run:
